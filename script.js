@@ -27,10 +27,7 @@ const focusMessage = document.getElementById('focusMessage');
 const focusExtra = document.getElementById('focusExtra');
 const phrasePreview = document.getElementById('phrasePreview');
 const phraseChips = document.querySelectorAll('.phrase-chip');
-const playLocalBtn = document.getElementById('playLocalBtn');
-const pauseLocalBtn = document.getElementById('pauseLocalBtn');
-const volumeSlider = document.getElementById('volumeSlider');
-const localAudio = document.getElementById('localAudio');
+const brightnessSlider = document.getElementById('brightnessSlider');
 
 const storageKey = 'cozy-study-state-v2';
 
@@ -43,8 +40,7 @@ let currentMode = 'work';
 let selectedMood = 'focused';
 let tasks = [];
 let journalEntries = [];
-let volume = 0.5;
-let isAudioPlaying = false;
+let brightness = 1;
 
 const moodMessages = {
   focused: 'your mood is centered and ready to focus.',
@@ -96,8 +92,7 @@ function saveState() {
     theme: document.body.dataset.theme,
     journalTitle: journalTitle.value,
     journalEntry: journalEntry.value,
-    volume,
-    isAudioPlaying
+    brightness
   };
   localStorage.setItem(storageKey, JSON.stringify(state));
 }
@@ -120,8 +115,7 @@ function restoreState() {
     journalTitle.value = state.journalTitle || '';
     journalEntry.value = state.journalEntry || '';
     document.body.dataset.theme = state.theme || 'peach';
-    volume = state.volume ?? 0.5;
-    isAudioPlaying = Boolean(state.isAudioPlaying);
+    brightness = state.brightness ?? 1;
 
     workInput.value = workMinutes;
     breakInput.value = breakMinutes;
@@ -129,8 +123,8 @@ function restoreState() {
     renderEntries();
     updateMood(selectedMood);
     renderTimer();
-    volumeSlider.value = volume;
-    localAudio.volume = volume;
+    brightnessSlider.value = brightness;
+    updateBrightness(brightness);
   } catch (error) {
     console.warn('could not restore saved state', error);
   }
@@ -303,28 +297,9 @@ function hideFocusOverlay() {
   }, 180);
 }
 
-function playLocalAudio() {
-  localAudio.volume = volume;
-  localAudio.play().then(() => {
-    isAudioPlaying = true;
-    saveState();
-  }).catch(() => {
-    isAudioPlaying = false;
-  });
-}
-
-function pauseLocalAudio() {
-  localAudio.pause();
-  isAudioPlaying = false;
-  saveState();
-}
-
-function updateVolume(nextValue) {
-  volume = Number(nextValue);
-  localAudio.volume = volume;
-  if (isAudioPlaying) {
-    localAudio.play().catch(() => {});
-  }
+function updateBrightness(nextValue) {
+  brightness = Number(nextValue);
+  document.documentElement.style.setProperty('--page-brightness', brightness);
   saveState();
 }
 
@@ -371,9 +346,7 @@ function init() {
 
   saveEntryBtn.addEventListener('click', saveJournal);
 
-  playLocalBtn.addEventListener('click', playLocalAudio);
-  pauseLocalBtn.addEventListener('click', pauseLocalAudio);
-  volumeSlider.addEventListener('input', (event) => updateVolume(event.target.value));
+  brightnessSlider.addEventListener('input', (event) => updateBrightness(event.target.value));
 
   document.getElementById('themePeach').addEventListener('click', () => {
     document.body.dataset.theme = 'peach';

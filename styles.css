@@ -6,6 +6,11 @@
   --text: #855e50;
   --soft: #fff8f2;
   --border: rgba(122, 98, 75, 0.2);
+  --page-brightness: 1;
+}
+
+body {
+  filter: brightness(var(--page-brightness));
 }
 
 body[data-theme="lavender"] {
@@ -210,11 +215,47 @@ button:hover {
 }
 
 .date-time {
-  padding: 8px 12px;
+  padding: 12px 18px;
   border-radius: 999px;
   background: var(--soft);
   color: var(--accent-soft);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.timer-display {
+  font-size: 4.2rem;
+  letter-spacing: -0.04em;
+}
+
+.sound-card .sound-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.brightness-line,
+.volume-line {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--accent);
   font-size: 0.95rem;
+}
+
+.brightness-line input,
+.volume-line input {
+  accent-color: var(--accent);
+  width: 100%;
+}
+
+.sound-embeds iframe {
+  display: block;
+  width: 100%;
+  min-height: 352px;
+  margin-top: 12px;
 }
 
 .desk-layout {
