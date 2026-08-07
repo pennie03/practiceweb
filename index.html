@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>my cozy study page</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-theme="peach">
+    <div id="trailLayer" class="trail-layer" aria-hidden="true"></div>
+    <div class="page-shell">
+      <section id="welcomeScreen" class="screen welcome-screen">
+        <div class="card welcome-card">
+          <p class="eyebrow">a soft little corner</p>
+          <h1>welcome to my website</h1>
+          <p class="intro-copy">
+            a calm little study space with gentle music, a planner mood tracker, a pomodoro timer, and simple visuals.
+          </p>
+          <button id="enterBtn" class="primary-btn">enter the study nook</button>
+        </div>
+      </section>
+
+      <section id="deskScreen" class="screen desk-screen hidden">
+        <header class="top-bar">
+          <div>
+            <p class="eyebrow">study sanctuary</p>
+            <h2>my little study page</h2>
+          </div>
+          <div class="top-actions">
+            <button id="themePeach" class="pill-btn">peach</button>
+            <button id="themeLavender" class="pill-btn">lavender</button>
+            <button id="themeSage" class="pill-btn">sage</button>
+            <button id="themeMint" class="pill-btn">mint</button>
+            <button id="themeDark" class="pill-btn">dark</button>
+            <div id="dateTime" class="date-time"></div>
+          </div>
+        </header>
+
+        <div class="desk-layout">
+          <div class="main-column">
+            <section class="card timer-card">
+              <div class="card-title-row">
+                <div>
+                  <p class="eyebrow">focus time</p>
+                  <h3>pomodoro timer</h3>
+                </div>
+                <button id="focusOverlayBtn" class="pill-btn">focus mode</button>
+              </div>
+
+              <div id="timerDisplay" class="timer-display">25:00</div>
+              <div class="timer-controls">
+                <button id="startBtn" class="primary-btn small">start</button>
+                <button id="pauseBtn" class="pill-btn">pause</button>
+                <button id="resetBtn" class="pill-btn">reset</button>
+              </div>
+
+              <div class="timer-settings">
+                <label>
+                  work minutes
+                  <input id="workInput" type="number" min="1" max="90" value="25" />
+                </label>
+                <label>
+                  break minutes
+                  <input id="breakInput" type="number" min="1" max="30" value="5" />
+                </label>
+              </div>
+            </section>
+
+            <section class="card task-card">
+              <div class="card-title-row">
+                <div>
+                  <p class="eyebrow">tiny checklist</p>
+                  <h3>tasks</h3>
+                </div>
+                <span class="chip">little steps</span>
+              </div>
+
+              <form id="taskForm" class="task-form">
+                <input id="taskInput" type="text" placeholder="write a task" />
+                <button class="primary-btn small">add</button>
+              </form>
+              <ul id="taskList" class="task-list"></ul>
+            </section>
+          </div>
+
+          <div class="side-column">
+            <section class="card mood-card">
+              <div class="card-title-row">
+                <div>
+                  <p class="eyebrow">planner mood</p>
+                  <h3>mood tracker</h3>
+                </div>
+                <span class="chip">5 soft moods</span>
+              </div>
+
+              <div class="mood-options">
+                <button class="mood-btn" data-mood="focused">focused</button>
+                <button class="mood-btn" data-mood="calm">calm</button>
+                <button class="mood-btn" data-mood="happy">happy</button>
+                <button class="mood-btn" data-mood="tired">tired</button>
+                <button class="mood-btn" data-mood="creative">creative</button>
+              </div>
+
+              <label for="journalTitle">journal title</label>
+              <input id="journalTitle" type="text" placeholder="title for your note" />
+              <label for="journalEntry">little journal entry</label>
+              <textarea id="journalEntry" rows="4" placeholder="write a few cozy lines..."></textarea>
+              <button id="saveEntryBtn" class="primary-btn small">save note</button>
+              <p id="moodSummary" class="mood-summary">your mood is centered and ready.</p>
+            </section>
+
+            <section class="card sound-card">
+              <div class="card-title-row">
+                <div>
+                  <p class="eyebrow">soft sounds</p>
+                  <h3>sound tab</h3>
+                </div>
+                <span class="chip">spotify + local</span>
+              </div>
+
+              <div class="sound-controls">
+                <button id="playLocalBtn" class="primary-btn small">play lofi</button>
+                <button id="pauseLocalBtn" class="pill-btn">pause</button>
+              </div>
+
+              <label class="volume-line">
+                volume
+                <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="0.5" />
+              </label>
+
+              <audio id="localAudio" src="music/Best%20of%20Lukrembo%20Playlist%20_%20DeliciousMiint.mp3" loop></audio>
+
+              <iframe
+                style="border-radius: 12px"
+                src="https://open.spotify.com/embed/playlist/37i9dQZF1DX9u4L5Wjt3WV?utm_source=0"
+                width="100%"
+                height="152"
+                frameborder="0"
+                allowfullscreen=""
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+              ></iframe>
+            </section>
+          </div>
+        </div>
+
+        <section class="card entry-card">
+          <div class="card-title-row">
+            <div>
+              <p class="eyebrow">saved thoughts</p>
+              <h3>journal entries</h3>
+            </div>
+            <span class="chip">kept safe</span>
+          </div>
+          <div id="entryList" class="entry-list"></div>
+        </section>
+
+        <section class="card phrase-card">
+          <p class="eyebrow">little notes</p>
+          <div class="phrase-row">
+            <button class="phrase-chip" data-phrase="one page at a time">one page at a time</button>
+            <button class="phrase-chip" data-phrase="tiny wins count">tiny wins count</button>
+            <button class="phrase-chip" data-phrase="breathe, then begin">breathe, then begin</button>
+          </div>
+          <p id="phrasePreview" class="phrase-preview">hover over a phrase to see a little cheer.</p>
+        </section>
+      </section>
+    </div>
+
+    <div id="focusOverlay" class="focus-overlay hidden" aria-hidden="true">
+      <div class="focus-panel">
+        <button id="closeFocusBtn" class="close-btn">×</button>
+        <p class="eyebrow">focus mode</p>
+        <h3 id="focusHeading">a gentle focus tip</h3>
+        <p id="focusMessage" class="focus-message">pick one tiny task and begin with your favorite pen.</p>
+        <div id="focusExtra" class="focus-extra"></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
